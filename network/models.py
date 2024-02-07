@@ -28,3 +28,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     followers = models.ManyToManyField(User, related_name='followers', blank=True)
     following = models.ManyToManyField(User, related_name='following', blank=True)
+
+
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user = u)[0])
