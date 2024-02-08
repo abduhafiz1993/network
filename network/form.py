@@ -2,7 +2,7 @@ from django import forms
 from .models import Comment, Post
 
 
-class NewPost(froms.ModelForm):
+class NewPost(forms.ModelForm):
     class Meta:
         model = Post
         fields = [""]
@@ -12,4 +12,3 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ["content"]
 
-        
