@@ -1,0 +1,10 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    <div>
+        {% for post in allposts %}
+        <p>{{post.content}}</p>
+        <span>likes {{post.likes}}</span>
+        {% endfor%}
+    </div>
+{% endblock %}

@@ -27,6 +27,16 @@ def index(request):
         'form': form
         })
 
+def allpost(request):
+
+    allposts = Post.objects.all().order_by("timestamp")
+    
+    return render(request, "network/allpost.html",{
+        "allposts" : allposts
+    })
+
+
+
 
 def login_view(request):
     if request.method == "POST":
