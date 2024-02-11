@@ -8,13 +8,16 @@
             <input type="text" name="fullname" value="{{user.name}}">
             <label for="username"></label>
             <input type="text" name="username" value ="{{user.username}}">
+            <input type="submit" value="Edit">
         </form>
-
+        <h1>{{user.username}}</h1>
         <div>
             {% for follower in user.profile.followers %}
-           <span>{{follower.username}}</span> 
+           <span>{{follower.username}}</span>
+           {% endfor %} 
         </div>
 
+        <a href="{% url 'following'%}">Following</a>
 
     </div>
 {% endblock %}
