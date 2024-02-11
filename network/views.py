@@ -11,24 +11,6 @@ from .form import *
 
 
 def index(request):
-    if request.method == "POST":
-        form = NewPost(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.like = 0
-            post.save()
-            return redirect('allpost')
-    else:
-        form = NewPost()
-
-
-    return render(request, "network/index.html", {
-        'form': form
-        })
-
-def allpost(request):
-
     allposts = Post.objects.all().order_by("timestamp")
     
     return render(request, "network/allpost.html",{
@@ -36,7 +18,29 @@ def allpost(request):
     })
 
 
+def newpost(request):
+    if request.method == "POST":
+    form = NewPost(request.POST)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.user = request.user
+        post.like = 0
+        post.save()
+        return redirect('index')
+    else:
+        form = NewPost()
 
+    return render(request, "network/index.html", {
+        'form': form
+        })
+
+def profile(request):
+
+    user = User.objects.get(pk = request.user)
+
+    return render(request, "network/profile.html" {
+        'user': user
+    })
 
 def login_view(request):
     if request.method == "POST":
