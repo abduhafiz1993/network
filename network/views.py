@@ -14,9 +14,9 @@ from django.core.paginator import Paginator
 def index(request):
     allposts = Post.objects.all().order_by("timestamp").reverse()
 
-    posts = Paginator(allposts, 10)
+    posts = Paginator(allposts, 2)
     pageNumber = request.GET.get('page')
-    page_obj = paginator.get_page(pageNumber) 
+    page_obj = posts.get_page(pageNumber) 
     
     return render(request, "network/allpost.html",{
         "page_obj" : page_obj
