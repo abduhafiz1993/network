@@ -3,11 +3,12 @@
 {% block body %}
     <div>
         {% for post in allposts %}
+        <p>{{post.user}}</p>
         <p>{{post.content}}</p>
         {% if post.likes == "network.User.None"%}
         <span>likes: 0</span>
         {% else %}
-        <span>likes {{post.likes}}</span>
+        <span>likes {{post.likes.length()}}</span>
         {% endif%}
         {% endfor%}
     </div>
