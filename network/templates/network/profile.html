@@ -2,22 +2,28 @@
 
 {% block body %}
     <div>
-        <form action="{% url 'update' %}">
-            {% csrf_token %}
-            <label for="fullname"></label>
-            <input type="text" name="fullname" value="{{user.name}}">
-            <label for="username"></label>
-            <input type="text" name="username" value ="{{user.username}}">
-            <input type="submit" value="Edit">
-        </form>
-        <h1>{{user.username}}</h1>
-        <div>
-            {% for follower in user.profile.followers %}
-           <span>{{follower.username}}</span>
-           {% endfor %} 
-        </div>
-
-        <a href="{% url 'following'%}">Following</a>
-
+        <h1>{{ user.username }}</h1>
+        {% for post in page_obj %}
+        <p>{{post.user}}</p>
+        <p>{{post.content}}</p>
+        {% endfor%}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              {% endif %}
+               
+              <li class="page-item disabled">
+                <a class="page-link" href="#">{{ page_obj.number }}</a>
+              </li>
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+              </li>
+              {% endif%}
+            </ul>
+          </nav>
     </div>
 {% endblock %}

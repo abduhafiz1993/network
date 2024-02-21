@@ -14,7 +14,7 @@ from django.core.paginator import Paginator
 def index(request):
     allposts = Post.objects.all().order_by("timestamp").reverse()
 
-    posts = Paginator(allposts, 2)
+    posts = Paginator(allposts, 10)
     pageNumber = request.GET.get('page')
     page_obj = posts.get_page(pageNumber) 
     
@@ -38,12 +38,16 @@ def newpost(request):
         'form': form
         })
 
-def profile(request):
+def profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    allposts = Post.objects.filter(user=user).order_by("timestamp").reverse()
 
-    user = User.objects.get(pk = request.user)
-
-    return render(request, "network/profile.html", {
-        'user': user
+    posts = Paginator(allposts, 10)
+    pageNumber = request.GET.get('page')
+    page_obj = posts.get_page(pageNumber) 
+    
+    return render(request, "network/allpost.html",{
+        "page_obj" : page_obj
     })
 
 def login_view(request):
