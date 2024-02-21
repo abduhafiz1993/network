@@ -26,11 +26,12 @@ class Comment(models.Model):
     def __str__(self):
         return f"Text: {self.text} comment_time: {self.comment_time} commenter:{self.commenter} auction_listing: {self.auction_listing}"
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    followers = models.ManyToManyField(User, related_name='followers', blank=True)
-    following = models.ManyToManyField(User, related_name='following', blank=True)
+
+class Follow(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE, related_name = 'user_is_following')
+    user_follower = models.ForeignKey(user, on_delete=models.CASCADE, related_name ='user_being_followed')
+    
 
 
-
-User.profile = property(lambda u: UserProfile.objects.get_or_create(user = u)[0])
+    def __str__(self):
+        return f"{self.user} is following {self.user_follower}"
