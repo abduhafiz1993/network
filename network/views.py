@@ -8,13 +8,19 @@ from django.urls import reverse
 from .models import User
 from .form import *
 
-
+# paginator
+from django.core.paginator import Paginator
 
 def index(request):
-    allposts = Post.objects.all().order_by("timestamp")
+    allposts = Post.objects.all().order_by("timestamp").reverse()
+
+    posts = Paginator(allposts, 10)
+    pageNumber = request.GET.get('page')
+    page_obj = paginator.get_page(pageNumber) 
     
     return render(request, "network/allpost.html",{
-        "allposts" : allposts
+        "allposts" : allposts,
+        "page_obj" : page_obj
     })
 
 
