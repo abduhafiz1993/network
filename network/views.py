@@ -19,7 +19,6 @@ def index(request):
     page_obj = paginator.get_page(pageNumber) 
     
     return render(request, "network/allpost.html",{
-        "allposts" : allposts,
         "page_obj" : page_obj
     })
 
