@@ -4,7 +4,11 @@
     <div>
         {% for post in allposts %}
         <p>{{post.content}}</p>
+        {% if post.likes == "network.User.None"%}
+        <span>likes: 0</span>
+        {% else %}
         <span>likes {{post.likes}}</span>
+        {% endif%}
         {% endfor%}
     </div>
 {% endblock %}

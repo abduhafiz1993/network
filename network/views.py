@@ -19,6 +19,7 @@ def index(request):
 
 
 def newpost(request):
+    form = NewPost()
     if request.method == "POST":
         form = NewPost(request.POST)
         if form.is_valid():
@@ -27,9 +28,7 @@ def newpost(request):
             post.like = 0
             post.save()
             return redirect('index')
-        else:
-            form = NewPost()
-
+            
     return render(request, "network/index.html", {
         'form': form
         })
