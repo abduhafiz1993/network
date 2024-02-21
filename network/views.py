@@ -20,15 +20,15 @@ def index(request):
 
 def newpost(request):
     if request.method == "POST":
-    form = NewPost(request.POST)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.user = request.user
-        post.like = 0
-        post.save()
-        return redirect('index')
-    else:
-        form = NewPost()
+        form = NewPost(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.like = 0
+            post.save()
+            return redirect('index')
+        else:
+            form = NewPost()
 
     return render(request, "network/index.html", {
         'form': form
@@ -38,7 +38,7 @@ def profile(request):
 
     user = User.objects.get(pk = request.user)
 
-    return render(request, "network/profile.html" {
+    return render(request, "network/profile.html", {
         'user': user
     })
 
@@ -92,3 +92,7 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+
+def following(request):
+    pass
