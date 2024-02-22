@@ -2,33 +2,43 @@
 
 {% block body %}
     <div>
-        <h1>{{ username }}</h1>
-        <div class="container">
+      <div class="container">
         <div class="row d-flex justify-content-center">
-        <h3 class="col-4">Followers: {{ follower.count }}</h3>
-        <h3 class="col-4">Following: {{ following.count }}</h3>
+      <h1>User: {{ username }}</h1>
 
-        {% if user.is_authenticated %}
-          {% if user != user_profile %}
-            {%if isFollowing %}
-              <form action= "{% url 'unfollow'%}" method="post">
-                {% csrf_token %} 
-                <input type="hidden" name="userfollow" value="{{user_profile.username }}">
-                <input type="submit" value="Unfollow" >
-              </form>
-            {% else %}
-              <form action ="{% url 'follow'%}" method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="userfollow" value="{{ user_profile.username }}">
-                  <input type="submit" value="follow" >
-                </form>
-          {% endif %}
-        {% endif %}
-       {% endif %}
         </div>
       </div>
+        <div class="container">
+        <div class="row d-flex justify-content-center">
+        <h5 class="col-6" style="text-align: right;">Followers: {{ follower.count }}</h5>
+        <h5 class="col-6" style="text-align: left;">Following: {{ following.count }}</h5>
+
+       
+        </div>
+      </div>
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        {% if user.is_authenticated %}
+        {% if user != user_profile %}
+          {%if isFollowing %}
+            <form action= "{% url 'unfollow'%}" method="post">
+              {% csrf_token %} 
+              <input type="hidden" name="userfollow" value="{{user_profile.username }}">
+              <input type="submit" value="Unfollow" >
+            </form>
+          {% else %}
+            <form action ="{% url 'follow'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="userfollow" value="{{ user_profile.username }}">
+                <input type="submit" value="follow" >
+              </form>
+        {% endif %}
+      {% endif %}
+     {% endif %}
+      </div>
+    </div>
         {% for post in page_obj %}
-        <a href="{% url 'profile' user_id = user%}">{{post.user}}</p>
+        <a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a>
         <p>{{post.content}}</p>
         {% endfor%}
         <nav aria-label="Page navigation example">
