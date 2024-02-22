@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.urls import reverse
 
 # from this folder imported code 
@@ -69,11 +69,23 @@ def profile(request, user_id):
     })
 
 def follow(request):
-    pass
+    userfollow = request.POST['userfollow']
+    currentUser = User.objects.get(pk = request.user.pk)
+    userfollowData = User.objects.get(username=userfollow)
+    f = Follow(user=currentUser, user_follower=userfollowData)
+    f.save()
+    user_id = userfollowData.pk
+    return HttpResponseRedirect(reverse(profile, kwargs={'user_id': user_id}))
 
 
 def unfollow(request):
-    pass
+    userfollow = request.POST['userfollow']
+    currentUser = User.objects.get(pk = request.user.pk)
+    userfollowData = User.objects.get(username=userfollow)
+    f = Follow.objects.filter(user=currentUser, user_follower=userfollowData)
+    f.delete()
+    user_id = userfollowData.pk
+    return redirect(reverse('profile', kwargs={'user_id': user_id}))
 
 def login_view(request):
     if request.method == "POST":

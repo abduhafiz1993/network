@@ -13,13 +13,13 @@
             {%if isFollowing %}
               <form action= "{% url 'unfollow'%}" method="post">
                 {% csrf_token %} 
-                <input type="hidden" name="userfollow" value="{{user_profile}}">
+                <input type="hidden" name="userfollow" value="{{user_profile.username }}">
                 <input type="submit" value="Unfollow" >
               </form>
             {% else %}
               <form action ="{% url 'follow'%}" method="post">
                   {% csrf_token %}
-                  <input type="hidden" name="userfollow" value="{{ user_profile}}">
+                  <input type="hidden" name="userfollow" value="{{ user_profile.username }}">
                   <input type="submit" value="follow" >
                 </form>
           {% endif %}
