@@ -146,7 +146,7 @@ def following(request):
 
     followingPosts = []
 
-    for post in allPosts:
+    for post in allposts:
         for person in followingPeople:
             if person.user_follower == post.user:
                 followingPosts.append(post)
