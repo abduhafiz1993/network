@@ -5,25 +5,25 @@
         <h1>{{ username }}</h1>
         <div class="container">
         <div class="row d-flex justify-content-center">
-        <h3 class="col-4">Followers: { followers.count </h3>
-        <h3 class="col-4">Following: {{ following.count })</h3
+        <h3 class="col-4">Followers: { follower.count </h3>
+        <h3 class="col-4">Following: {{ following.count })</h3>
 
         {% if user.is_authenticated %}
-        {% if user != user_profile %}
-        {%if isFollowing %}
-        <form action= "{% url 'unfollow'%}" method="post">
-        {% csrf_token %} 
-         <input type="hidden" name="userfollow" value="{{user_profile}}">
-        <input type="submit" value="Unfollow" >
-        </form>
-        {% else %}
-        <form action ="{% url 'follow'%}" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="userfollow" value="{{ user_profile}}"
-          <input type="submit" value="follow" >
-          </form>
-       {% endif %}
-       {% endif %}
+          {% if user != user_profile %}
+            {%if isFollowing %}
+              <form action= "{% url 'unfollow'%}" method="post">
+                {% csrf_token %} 
+                <input type="hidden" name="userfollow" value="{{user_profile}}">
+                <input type="submit" value="Unfollow" >
+              </form>
+            {% else %}
+              <form action ="{% url 'follow'%}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="userfollow" value="{{ user_profile}}">
+                  <input type="submit" value="follow" >
+                </form>
+          {% endif %}
+        {% endif %}
        {% endif %}
         </div>
       </div>
