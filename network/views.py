@@ -40,6 +40,7 @@ def newpost(request):
 
 def profile(request, user_id):
     user = User.objects.get(pk=user_id)
+    userame = user.username
     allposts = Post.objects.filter(user=user).order_by("timestamp").reverse()
 
     posts = Paginator(allposts, 10)
@@ -47,7 +48,8 @@ def profile(request, user_id):
     page_obj = posts.get_page(pageNumber) 
     
     return render(request, "network/allpost.html",{
-        "page_obj" : page_obj
+        "page_obj" : page_obj,
+        "username" : userame
     })
 
 def login_view(request):
