@@ -67,6 +67,13 @@ def profile(request, user_id):
         "isFollowing" : isFollowing
     })
 
+def follow(request):
+    pass
+
+
+def unfollow(request):
+    pass
+
 def login_view(request):
     if request.method == "POST":
 
