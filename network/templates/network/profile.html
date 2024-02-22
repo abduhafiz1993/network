@@ -28,8 +28,8 @@
         </div>
       </div>
         {% for post in page_obj %}
-        <p>{{post.user}}</p>
-        <p>{{post.content}}</p>
+        <a href="{% url 'profile' user_id = post.user.pk %}">{{post.user}}</a>
+        <h5>{{post.content}}</h5>
         {% endfor%}
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

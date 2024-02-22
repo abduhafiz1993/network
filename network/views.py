@@ -140,4 +140,22 @@ def register(request):
 
 
 def following(request):
-    pass
+    currentUser = User.objects.get(pk=request.user.pk)
+    followingPeople = Follow.objects.filter(user=currentUser)
+    allposts = Post.objects.all().order_by("timestamp").reverse()
+
+    followingPosts = []
+
+    for post in allPosts:
+        for person in followingPeople:
+            if person.user_follower == post.user:
+                followingPosts.append(post)
+
+
+    posts = Paginator(followingPosts, 10)
+    pageNumber = request.GET.get('page')
+    page_obj = posts.get_page(pageNumber) 
+    
+    return render(request, "network/following.html", {
+        "page_obj" : page_obj
+    })            

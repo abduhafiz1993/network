@@ -3,7 +3,7 @@
 {% block body %}
     <div>
         {% for post in page_obj %}
-        <p>{{post.user}}</p>
+        <a href="{% url 'profile' user_id = post.user.pk %}">{{post.user}}</a>
         <p>{{post.content}}</p>
         {% endfor%}
         <nav aria-label="Page navigation example">
