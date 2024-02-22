@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 # from this folder imported code 
-from .models import User
+from .models import *
 from .form import *
 
 # paginator
@@ -43,13 +43,28 @@ def profile(request, user_id):
     userame = user.username
     allposts = Post.objects.filter(user=user).order_by("timestamp").reverse()
 
+    following = Follow.objects.filter(user = user)
+    follower = Follow.objects.filter(user_follower = user)
+
+    try:
+        checkFollow = followers.filter(user=User.objects.get(pk=request.user.pk)) 
+        if len (checkFollow) != 0:
+            isFollowing = True
+        else:
+            isFollowing = False
+    except:
+        isFollowing = False
+
     posts = Paginator(allposts, 10)
     pageNumber = request.GET.get('page')
     page_obj = posts.get_page(pageNumber) 
     
-    return render(request, "network/allpost.html",{
+    return render(request, "network/profile.html",{
         "page_obj" : page_obj,
-        "username" : userame
+        "username" : userame,
+        "follower" : follower,
+        "following" : following,
+        "isFollowing" : isFollowing
     })
 
 def login_view(request):
