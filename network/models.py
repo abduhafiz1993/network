@@ -28,10 +28,8 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(user, on_delete=models.CASCADE, related_name = 'user_is_following')
-    user_follower = models.ForeignKey(user, on_delete=models.CASCADE, related_name ='user_being_followed')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'user_is_following')
+    user_follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name ='user_being_followed')
     
-
-
     def __str__(self):
         return f"{self.user} is following {self.user_follower}"

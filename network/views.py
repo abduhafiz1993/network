@@ -18,7 +18,7 @@ def index(request):
     pageNumber = request.GET.get('page')
     page_obj = posts.get_page(pageNumber) 
     
-    return render(request, "network/allpost.html",{
+    return render(request, "network/allpost.html", {
         "page_obj" : page_obj
     })
 
