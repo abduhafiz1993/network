@@ -3,8 +3,8 @@
 {% block body %}
     <div>
         <h1>{{ username }}</h1>
-        <h2>Following: </h2>
-        <h2>Followers: </h2> 
+        <h2>Following: {{ following.count }}</h2>
+        <h2>Followers: {{follower.count}}</h2> 
         {% for post in page_obj %}
         <p>{{post.user}}</p>
         <p>{{post.content}}</p>
