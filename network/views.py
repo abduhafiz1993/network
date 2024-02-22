@@ -64,7 +64,8 @@ def profile(request, user_id):
         "username" : userame,
         "follower" : follower,
         "following" : following,
-        "isFollowing" : isFollowing
+        "isFollowing" : isFollowing,
+        "user_profile" : user
     })
 
 def follow(request):
