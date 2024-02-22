@@ -5,8 +5,8 @@
         <h1>{{ username }}</h1>
         <div class="container">
         <div class="row d-flex justify-content-center">
-        <h3 class="col-4">Followers: { follower.count </h3>
-        <h3 class="col-4">Following: {{ following.count })</h3>
+        <h3 class="col-4">Followers: {{ follower.count }}</h3>
+        <h3 class="col-4">Following: {{ following.count }}</h3>
 
         {% if user.is_authenticated %}
           {% if user != user_profile %}
