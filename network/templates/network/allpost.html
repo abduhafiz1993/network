@@ -23,14 +23,12 @@
 
       modal.classList.remove('show');
       modal.setAttribute('aria-hidden', 'true');
-      model.setAttribute('style', 'display: none');
+      modal.setAttribute('style', 'display: none');
 
       const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
 
-      for( let i=0; i<modalsBackdrops.length; i++){
-        document.body,removeChild(modalsBackdrops[i]);
-      }
-
+      
+        document.body,removeChild(modalsBackdrops);
     }
     )
   }
