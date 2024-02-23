@@ -3,8 +3,18 @@
 {% block body %}
 <script>
   function submithandler(id){
-    content_text = document.getElementById(`textarea_${id}`).value
-    console.log(content_text)
+    const content_text = document.getElementById(`textarea_${id}`).value
+    fetch(`/edit/${id}`, {
+      method: "POST",
+      headers: {"Content-type": "application/json", "X-CSRFToken": getCookie("csrftoken")},
+      body: JSON.stringify({
+        content: content_text
+      })
+    })
+    .then(response => response.json())
+    .then(result => 
+    console.log(result)
+    )
   }
 </script>
     <div>
