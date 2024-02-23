@@ -25,12 +25,26 @@ def edit(request, post_id):
 def index(request):
     allposts = Post.objects.all().order_by("timestamp").reverse()
 
+
+    allLikes =Likes.objects.all()
+
+    whoYouLiked = []
+    try:
+        for like in allLikes:
+            if like.user.id == request.user.id == request.user.id:
+                whoYouLiked.append(like.post.pk)
+    except:
+        whoYouLiked = []
+
+
+
     posts = Paginator(allposts, 10)
     pageNumber = request.GET.get('page')
     page_obj = posts.get_page(pageNumber) 
     
     return render(request, "network/allpost.html", {
-        "page_obj" : page_obj
+        "page_obj" : page_obj,
+        "whoYouLiked" : whoYouLiked
     })
 
 
