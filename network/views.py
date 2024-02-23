@@ -15,10 +15,19 @@ from django.core.paginator import Paginator
 
 
 def like(request, post_id):
-    pass
+    post = Post.objects.get(pk=post_id)
+    user = User.objects.get(pk=request.user)
+    likes = Likes(user=user, post=post)
+    likes.save()
+    return JsonResponse({"message": "Liked"})
 
 def removeLike(request, post_id):
-    pass
+    post = Post.objects.get(pk=post_id)
+    user = User.objects.get(pk=request.user)
+    likes = Likes.objects.filter(user=user, post=post)
+    likes.delete()
+    return JsonResponse({"message": "Like is removed"})
+
 
 def edit(request, post_id):
     if request.method == 'POST':
