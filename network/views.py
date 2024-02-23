@@ -3,7 +3,9 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.urls import reverse
-
+##
+import json
+from django.http import JsonResponse
 # from this folder imported code 
 from .models import *
 from .form import *
@@ -11,8 +13,14 @@ from .form import *
 # paginator
 from django.core.paginator import Paginator
 
-def edit(request):
-    pass
+def edit(request, post_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        edit_post = Post.objects.get(pk=post_id)
+        edit_post.content = data["content"]
+        edit_post.save()
+        return JsonResponse({"message": "Change successful", "data": data["content"]})
+
 
 def index(request):
     allposts = Post.objects.all().order_by("timestamp").reverse()
