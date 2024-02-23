@@ -41,6 +41,7 @@
         <div>
         <a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a>
         <p id="content_{{post.pk}}">{{post.content}}</p>
+        <span><i>{{post.timestamp}}}</i></span>
         {% if user.is_authenticated %}
           {% if user == post.user %}
           
