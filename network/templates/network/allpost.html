@@ -34,6 +34,7 @@
   }
   function likehandler(id, whoYouLiked){
 
+    const btn = document.getElementById(`btn_${id}`)
     if(whoYouLiked.indexOf(id)>= 0){
       var liked = true; 
     }else{
@@ -42,9 +43,19 @@
     }
 
     if (liked == true){
-
+      fetch(`/removeLike/%{id}`)
+      .then(response => response.json)
+      .then(result => {
+        btn.classList.remove('fa-solid')
+        btn.classList.add('fa-thin')
+      })
     }else{
-      
+      fetch(`/like/%{id}`)
+      .then(response => response.json)
+      .then(result => {
+        btn.classList.remove('fa-thin')
+        btn.classList.add('fa-solid')
+      })
     }
   }
   
@@ -86,9 +97,9 @@
           </div>
           {% else %}
           {% if post.pk in whoYouLiked %}
-          <button class=" btn btn-primary col-1 fa-solid fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
+          <button class=" btn col-1 fa-solid fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
           {% else %}
-          <button class="btn btn-primary col-1 fa-thin fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
+          <button class="btn col-1 fa-thin fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
           {% endif %}
         {% endif%}
       </div>
