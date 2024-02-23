@@ -33,6 +33,7 @@
     )
   }
   function likehandler(id, whoYouLiked){
+
     if(whoYouLiked.indexOf(id)>= 0){
       var liked = true; 
     }else{
@@ -85,9 +86,9 @@
           </div>
           {% else %}
           {% if post.pk in whoYouLiked %}
-          <button class=" btn btn-primary col-1" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
+          <button class=" btn btn-primary col-1 fa-solid fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
           {% else %}
-          <button class="btn btn-primary col-1" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
+          <button class="btn btn-primary col-1 fa-thin fa-heart" id="btn_{{post.id}}" style="color: #ed0c0c;" onclick="likehandler('{{post.id}}', '{{whoYouLiked}}')"></button>
           {% endif %}
         {% endif%}
       </div>
