@@ -3,7 +3,8 @@
 {% block body %}
 <script>
   function submithandler(id){
-    console.log(id)
+    content_text = document.getElementById(`textarea_${id}`).value
+    console.log(content_text)
   }
 </script>
     <div>
@@ -15,27 +16,27 @@
         {% if user.is_authenticated %}
           {% if user == post.user %}
           
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#model{{post.pk}}">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{post.pk}}">
             Edit
           </button>
           <!-- Modal -->
-          <div class="modal fade" id="#model{{post.pk}}" tabindex="-1" role="dialog" aria-labelledby="#model{{post.pk}}" aria-hidden="true">
+          <div class="modal fade" id="exampleModal{{post.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.pk}}" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                  <h5 class="modal-title" id="exampleModalLabel{{post.pk}}">Edit</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
                   <form action="">
-                    <textarea name="content" id="textarea_{{ post.pk }}" cols="30" rows="8">{{ post.content }}</textarea>
+                    <textarea name="content" id="textarea_{{ post.pk }}" cols="60" rows="8">{{ post.content }}</textarea>
                   </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                  <button onclick="submithandler({{post.id}})" type="button" class="btn btn-primary">Save changes</button>
+                  <button onclick="submithandler('{{post.id}}')" type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
