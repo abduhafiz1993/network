@@ -13,6 +13,13 @@ from .form import *
 # paginator
 from django.core.paginator import Paginator
 
+
+def like(request, post_id):
+    pass
+
+def removeLike(request, post_id):
+    pass
+
 def edit(request, post_id):
     if request.method == 'POST':
         data = json.loads(request.body)
