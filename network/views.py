@@ -11,6 +11,9 @@ from .form import *
 # paginator
 from django.core.paginator import Paginator
 
+def edit(request):
+    pass
+
 def index(request):
     allposts = Post.objects.all().order_by("timestamp").reverse()
 
