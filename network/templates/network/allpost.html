@@ -9,6 +9,7 @@
   }
   function submithandler(id){
     const content_text = document.getElementById(`textarea_${id}`).value;
+    const content = document.getElementById(`content_${id}`);
     fetch(`/edit/${id}`, {
       method: "POST",
       headers: {"Content-type": "application/json", "X-CSRFToken": getCookie("csrftoken")},
@@ -17,17 +18,31 @@
       })
     })
     .then(response => response.json())
-    .then(result => 
-    console.log(result)
+    .then(result => {
+      content.innerHTML = result.data;
+
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+      model.setAttribute('style', 'display: none');
+
+      const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
+
+      for( let i=0; i<modalsBackdrops.length; i++){
+        document.body,removeChild(modalsBackdrops[i]);
+      }
+
+    }
     )
   }
+  
+  
 </script>
     <div>
       <h1>All post</h1>
         {% for post in page_obj %}
         <div>
         <a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a>
-        <p>{{post.content}}</p>
+        <p id="content_{{post.pk}}">{{post.content}}</p>
         {% if user.is_authenticated %}
           {% if user == post.user %}
           
