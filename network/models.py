@@ -11,7 +11,6 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     # like have many to many relation to user 
-    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -33,3 +32,12 @@ class Follow(models.Model):
     
     def __str__(self):
         return f"{self.user} is following {self.user_follower}"
+
+
+class Likes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'user_like')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name = 'Post_like')
+
+    def __str__(self):
+        return f"{self.user} is likes {self.post}"
+
