@@ -14,7 +14,7 @@ class Post(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Content: {self.content} likes: {self.likes.length()}"
+        return f"Content: {self.content}"
 
 class Comment(models.Model):
     comment_text = models.TextField()
