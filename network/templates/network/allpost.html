@@ -1,73 +1,15 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-<script>
-  function getCookie(name){
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if(parts.length == 2) return parts.pop().split(';').shift();
-  }
-  function submithandler(id){
-    const content_text = document.getElementById(`textarea_${id}`).value;
-    const content = document.getElementById(`content_${id}`);
-    fetch(`/edit/${id}`, {
-      method: "POST",
-      headers: {"Content-type": "application/json", "X-CSRFToken": getCookie("csrftoken")},
-      body: JSON.stringify({
-        content: content_text
-      })
-    })
-    .then(response => response.json())
-    .then(result => {
-      content.innerHTML = result.data;
 
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      modal.setAttribute('style', 'display: none');
-
-      const modalsBackdrops = document.getElementsByClassName('modal-backdrop');
-
-      
-        document.body,removeChild(modalsBackdrops);
-    }
-    )
-  }
-  function likehandler(id, whoYouLiked){
-
-
-    const btn = document.getElementById(`btn_${id}`)
-    if(whoYouLiked.indexOf(id)>= 0){
-      var liked = true; 
-    }else{
-      var liked = false;
-
-    }
-
-    if (liked == true){
-      fetch(`/removeLike/${id}`)
-      .then(response => response.json)
-      .then(result => {
-        btn.classList.remove('fa-solid')
-        btn.classList.add('fa-thin')
-      })
-    }else{
-      fetch(`/like/${id}`)
-      .then(response => response.json)
-      .then(result => {
-        btn.classList.remove('fa-thin')
-        btn.classList.add('fa-solid')
-      })
-    }
-  }
-  
-</script>
     <div>
       <h1>All post</h1>
-        {% for post in page_obj %}
-        <div>
-        <a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a>
-        <p id="content_{{post.pk}}">{{post.content}}</p>
-        <span><i>{{post.timestamp}}</i></span>
+      {% for post in page_obj %}
+      <div class="card text-bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header"><a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a></div>
+        <div class="card-body">
+        <p class="card-text" id="content_{{post.pk}}">{{post.content}}</p>
+        <small class="card-text"><i class="text-body-secondary" >{{post.timestamp}}</i></small>
         {% if user.is_authenticated %}
           {% if user == post.user %}
           
@@ -105,7 +47,14 @@
           {% endif %}
         {% endif%}
       </div>
-        {% endfor%}
+        {% endfor%}     
+        </div>
+      </div>
+        
+        <div>
+        
+        
+        
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 {% if page_obj.has_previous %}
