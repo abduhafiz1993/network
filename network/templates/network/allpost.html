@@ -1,59 +1,65 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-
-    <div>
+<div>
       <h1>All post</h1>
-      {% for post in page_obj %}
-      <div class="card text-bg-light mb-3" style="max-width: 18rem;">
-        <div class="card-header"><a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a></div>
-        <div class="card-body">
-        <p class="card-text" id="content_{{post.pk}}">{{post.content}}</p>
-        <small class="card-text"><i class="text-body-secondary" >{{post.timestamp}}</i></small>
-        {% if user.is_authenticated %}
-          {% if user == post.user %}
-          
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{post.pk}}">
-            Edit
-          </button>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal{{post.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.pk}}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel{{post.pk}}">Edit</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for post in page_obj %}
+      <div class="col">
+        <div class="card text-bg-light mb-3" style="max-width: 18rem;">
+          <div class="card-header"><a href="{% url 'profile' user_id=post.user.pk %}">{{post.user}}</a></div>
+          <div class="card-body" style="text-align: left;">
+            <p class="card-title" id="content_{{post.pk}}">{{post.content}}</p>
+            {% if user.is_authenticated %}
+              {% if user == post.user %}
+                <div>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{post.pk}}">
+                    Edit
                   </button>
-                </div>
-                <div class="modal-body">
-                  <form action="">
-                    <textarea name="content" id="textarea_{{ post.pk }}" cols="60" rows="8">{{ post.content }}</textarea>
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                  <button onclick="submithandler('{{post.pk}}')" type="button" class="btn btn-primary">Save changes</button>
+                
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{post.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{post.pk}}" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel{{post.pk}}">Edit</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="">
+                          <textarea name="content" id="textarea_{{ post.pk }}" cols="60" rows="8">{{ post.content }}</textarea>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                        <button onclick="submithandler('{{post.pk}}')" type="button" class="btn btn-primary">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+              {% else %}
+                <div>
+                {% if post.pk in whoYouLiked %}
+                  <i class=" fa-solid fa-heart" id="btn_{{post.pk}}" style="color: #ed0c0c;" onclick="likehandler('{{post.pk}}', '{{whoYouLiked}}')"></i>
+                {% else %}
+                  <i class="fa-regular fa-heart" id="btn_{{post.pk}}" style="color: #ed0c0c;" onclick="likehandler('{{post.pk}}', '{{whoYouLiked}}')"></i>
+                {% endif %}
+              {% endif %}
+            {% endif%}
+              </div>
+              <small class="card-text" style="text-align: right;"><i class="text-body-secondary" >{{post.timestamp}}</i></small>
           </div>
-          {% else %}
-          {% if post.pk in whoYouLiked %}
-          <i class=" fa-solid fa-heart" id="btn_{{post.pk}}" style="color: #ed0c0c;" onclick="likehandler('{{post.pk}}', '{{whoYouLiked}}')"></i>
-          {% else %}
-          <i class="fa-thin fa-heart" id="btn_{{post.pk}}" style="color: #ed0c0c;" onclick="likehandler('{{post.pk}}', '{{whoYouLiked}}')"></i>
-          {% endif %}
-          {% endif %}
-        {% endif%}
-      </div>
-        {% endfor%}     
         </div>
       </div>
+    {% endfor%}     
+          
+  </div>
         
-        <div>
-        
-        
+      <div>
         
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
@@ -73,5 +79,6 @@
               {% endif%}
             </ul>
           </nav>
-    </div>
+      </div>
+  </div>
 {% endblock %}

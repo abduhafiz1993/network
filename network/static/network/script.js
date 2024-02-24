@@ -37,7 +37,7 @@ function getCookie(name){
             .then(response => response.json())
             .then(result => {
                 btn.classList.remove('fa-solid');
-                btn.classList.add('fa-thin');
+                btn.classList.add('fa-regular');
                 
                 // Find the index of the element in the array and remove it
                 const indexToRemove = whoYouLiked.indexOf(id);
@@ -49,7 +49,7 @@ function getCookie(name){
         fetch(`/like/${id}`)
             .then(response => response.json())
             .then(result => {
-                btn.classList.remove('fa-thin');
+                btn.classList.remove('fa-regular');
                 btn.classList.add('fa-solid');
 
                 // Add the id to the array
